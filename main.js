@@ -97,19 +97,50 @@ for(let i = 0; i < posts.length; i++){
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="1">
+                <a class="like-button  js-like-button" data-postid="1">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
+                Piace a <b id="like-counter-${posts.id}" class="js-likes-counter">${posts[i].likes}</b> persone
             </div>
         </div> 
     </div>            
 </div>
-`
+`;
 
 
 console.log('posts.lenght', posts.length, typeof posts.length);
 }
+
+let allLikeButton = document.querySelectorAll('.like-button');
+let allContainerLikers = document.querySelectorAll('b');
+console.log("allContainerLikers", allContainerLikers);
+
+
+
+
+for (let j = 0; j < allLikeButton.length; j++){
+
+    allLikeButton[j].addEventListener("click", function(){
+        if(!(allLikeButton[j].classList.contains('like-button--liked'))){
+            allLikeButton[j].classList.add("like-button--liked");
+            console.log("incremento counter");
+            console.log("numero like prima", posts[j].likes);
+            posts[j].likes++;
+            console.log("numero like dopo", posts[j].likes);
+            allContainerLikers[j].innerHTML = posts[j].likes;
+        }
+        else if((allLikeButton[j].classList.contains('like-button--liked'))){
+            allLikeButton[j].classList.remove("like-button--liked");
+            console.log("decremento counter");
+            console.log("numero like prima", posts[j].likes);
+            posts[j].likes--;
+            console.log("numero like dopo", posts[j].likes);
+            allContainerLikers[j].innerHTML = posts[j].likes;
+        }
+
+    })
+}
+
